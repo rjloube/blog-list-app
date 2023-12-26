@@ -1,0 +1,29 @@
+{
+  "name": "blog-list-app",
+  "version": "1.0.0",
+  "description": "This is a blog list app for Full Stack Open 2023.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjloube/blog-list-app.git"
+  },
+  "author": "Russell Loube",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rjloube/blog-list-app/issues"
+  },
+  "homepage": "https://github.com/rjloube/blog-list-app#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.6.5"
+  }
+}
