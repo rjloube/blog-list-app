@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -19,11 +19,15 @@
   },
   "homepage": "https://github.com/rjloube/blog-list-app#readme",
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.0.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "mongoose": "^7.6.5"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
