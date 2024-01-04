@@ -121,6 +121,13 @@ const listWithZeroLikes = [
   },
 ];
 
+describe("most blogs", () => {
+  test.only("when a list has various authors, equals the author with most blogs", () => {
+    const result = listHelper.mostBlogs(listWithSixBlogs);
+    expect(result).toEqual({ author: "Robert C. Martin", blogs: 3 });
+  });
+});
+
 describe("favorite blog", () => {
   test("when list has blogs with various likes, equals the blog with most likes", () => {
     let { _id, url, __v, ...rest } = listWithSixBlogs[2];
