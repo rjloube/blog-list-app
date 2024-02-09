@@ -26,6 +26,10 @@ describe(
       .get("/api/blogs")
       .expect(200)
       .expect("Content-Type", /application\/json/);
+  }),
+  test("the unique identifier property of the blog posts is named id", async () => {
+    const response = await api.get("/api/blogs");
+    expect(response.body[0].id).toBeDefined();
   })
 );
 
