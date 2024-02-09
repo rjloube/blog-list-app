@@ -57,6 +57,24 @@ describe(
     expect(author).toContain("Mike Rotch");
     expect(url).toContain("http://www.testblog.com");
     expect(likes).toContain(0);
+  }),
+  test("if the likes property is missing from the request, it will default to 0", async () => {
+    const newBlog = {
+      title: "Another One",
+      author: "DJ Khaled",
+      url: "http://www.anotherone.com",
+    };
+
+    const response = await api.post("/api/blogs").send(newBlog);
+    expect(response.body.likes).toBe(0);
+  }),
+  test("if the title and url properties are missing from the request data, the backend responds with a 400 Bad Request status code", async () => {
+    const newBlog = {
+      author: "Ben Dover",
+      likes: 88,
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
   })
 );
 
