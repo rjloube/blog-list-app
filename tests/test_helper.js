@@ -67,8 +67,16 @@ const nonExistingId = async () => {
   return blog._id.toString();
 };
 
+const updatedBlog = {
+  title: "Updated blog",
+  author: "Updated author",
+  url: "http://www.updatedblog.com",
+  likes: 100,
+};
+
 module.exports = {
   initialBlogs,
   blogsInDb,
   nonExistingId,
+  updatedBlog,
 };
