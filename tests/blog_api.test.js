@@ -30,7 +30,7 @@ describe("when there is initially some blogs saved", () => {
   });
 });
 
-describe("addition of a new note", () => {
+describe("addition of a new blog", () => {
   test("a valid blog can be added", async () => {
     const newBlog = {
       title: "Test blog",
@@ -111,20 +111,21 @@ describe("updating a blog", () => {
       .send(updatedBlog);
 
     expect(response.status).toBe(200);
+    delete response.body.id;
     expect(response.body).toEqual(updatedBlog);
 
     const blogsAtEnd = await helper.blogsInDb();
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length);
   });
 
-  test("succeds with status code 204 if id does not exist", async () => {
+  test("fails with status code 404 if id does not exist", async () => {
     const validNonexistingId = await helper.nonExistingId();
     const updatedBlog = helper.updatedBlog;
 
     await api
       .put(`/api/blogs/${validNonexistingId}`)
       .send(updatedBlog)
-      .expect(204);
+      .expect(404);
 
     const blogsAtEnd = await helper.blogsInDb();
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length);
