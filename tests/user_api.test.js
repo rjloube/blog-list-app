@@ -56,4 +56,59 @@ describe("when there is initially one user in db", () => {
     const usersAtEnd = await helper.usersInDb();
     expect(usersAtEnd).toHaveLength(usersAtStart.length);
   });
+
+  test("creation fails with proper statuscode and message if username or password is missing or too short", async () => {
+    const usersAtStart = await helper.usersInDb();
+
+    const newUser1 = {
+      username: "user1",
+      name: "User One",
+      password: "pw",
+    };
+
+    const newUser2 = {
+      username: "",
+      name: "User Two",
+      password: "password",
+    };
+
+    const newUser3 = {
+      username: "user3",
+      name: "User Three",
+      password: "",
+    };
+
+    const result1 = await api
+      .post("/api/users")
+      .send(newUser1)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+
+    expect(result1.body.error).toContain(
+      "username and password must be at least 3 characters long"
+    );
+
+    const result2 = await api
+      .post("/api/users")
+      .send(newUser2)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+
+    expect(result2.body.error).toContain(
+      "username and password must be at least 3 characters long"
+    );
+
+    const result3 = await api
+      .post("/api/users")
+      .send(newUser3)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+
+    expect(result3.body.error).toContain(
+      "username and password must be at least 3 characters long"
+    );
+
+    const usersAtEnd = await helper.usersInDb();
+    expect(usersAtEnd).toHaveLength(usersAtStart.length);
+  });
 });
