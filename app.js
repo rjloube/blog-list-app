@@ -11,6 +11,7 @@ const middleware = require("./utils/middleware");
 const mongoose = require("mongoose");
 const logger = require("./utils/logger");
 const tokenExtractor = require("./utils/tokenHandler");
+const userExtractor = require("./utils/userExtractor");
 
 mongoose.set("strictQuery", false);
 

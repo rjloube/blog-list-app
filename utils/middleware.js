@@ -1,5 +1,6 @@
 const logger = require("./logger");
 const tokenHandler = require("./tokenHandler");
+const userExtractor = require("./userExtractor");
 
 const requestLogger = (request, response, next) => {
   logger.info("Method:", request.method);
@@ -11,6 +12,11 @@ const requestLogger = (request, response, next) => {
 
 const tokenExtractor = (request, response, next) => {
   tokenHandler.assignTokenToRequest(request);
+  next();
+};
+
+const extractUser = async (request, response, next) => {
+  await userExtractor.assignUserToRequest(request);
   next();
 };
 
@@ -48,4 +54,5 @@ module.exports = {
   unknownEndpoint,
   errorHandler,
   tokenExtractor,
+  extractUser,
 };
