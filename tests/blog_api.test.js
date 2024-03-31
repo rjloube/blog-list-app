@@ -32,7 +32,7 @@ describe("when there is initially some blogs saved", () => {
 
 describe("addition of a new blog", () => {
   test("a valid blog can be added", async () => {
-    const token = await helper.getToken("root");
+    const token = await helper.getToken("testuser");
 
     const newBlog = {
       title: "Test blog",
@@ -61,7 +61,7 @@ describe("addition of a new blog", () => {
     expect(likes).toContain(0);
   });
   test("if the likes property is missing from the request, it will default to 0", async () => {
-    const token = await helper.getToken("root");
+    const token = await helper.getToken("testuser");
 
     const newBlog = {
       title: "Another One",
@@ -76,13 +76,28 @@ describe("addition of a new blog", () => {
     expect(response.body.likes).toBe(0);
   }),
     test("if the title and url properties are missing from the request data, the backend responds with a 400 Bad Request status code", async () => {
+      const token = await helper.getToken("testuser");
+
       const newBlog = {
         author: "Ben Dover",
         likes: 88,
       };
 
-      await api.post("/api/blogs").send(newBlog).expect(400);
+      await api
+        .post("/api/blogs")
+        .set("Authorization", `Bearer ${token}`)
+        .send(newBlog)
+        .expect(400);
     });
+
+  test("if the token is missing from the request, the backend responds with a 401 Unauthorized status code", async () => {
+    const newBlog = {
+      author: "Ben Dover",
+      likes: 88,
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(401);
+  });
 });
 
 describe("deletion of a blog", () => {
@@ -90,7 +105,7 @@ describe("deletion of a blog", () => {
     const blogsAtStart = await helper.blogsInDb();
     const blogToDelete = blogsAtStart[0];
 
-    const token = await helper.getToken();
+    const token = await helper.getToken("testuser");
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
@@ -105,15 +120,16 @@ describe("deletion of a blog", () => {
     expect(titles).not.toContain(blogToDelete.title);
   });
 
-  test("succeeds with status code of 204 even if id is invalid", async () => {
+  test("fails with status code of 404 if id not found", async () => {
     const validNonexistingId = await helper.nonExistingId();
-    const token = await helper.getToken();
+    console.log("validNonexistingId", validNonexistingId);
+    const token = await helper.getToken("testuser");
 
     console.log("validNonexistingId", validNonexistingId);
     await api
       .delete(`/api/blogs/${validNonexistingId}`)
       .set("Authorization", `Bearer ${token}`)
-      .expect(204);
+      .expect(404);
   });
 });
 

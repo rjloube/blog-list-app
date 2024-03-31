@@ -3,12 +3,21 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
 const initialBlogs = [
+  // {
+  //   _id: "5a422a851b54a676234d17f7",
+  //   title: "React patterns",
+  //   author: "Michael Chan",
+  //   url: "https://reactpatterns.com/",
+  //   likes: 7,
+  //   __v: 0,
+  // },
   {
-    _id: "5a422a851b54a676234d17f7",
     title: "React patterns",
     author: "Michael Chan",
     url: "https://reactpatterns.com/",
     likes: 7,
+    user: "6606c722350edd701921071d",
+    id: "6609c5143dbba47cc2857b44",
     __v: 0,
   },
   {
@@ -16,6 +25,7 @@ const initialBlogs = [
     title: "Go To Statement Considered Harmful",
     author: "Edsger W. Dijkstra",
     url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
+    user: "6606c722350edd701921071d",
     likes: 5,
     __v: 0,
   },
@@ -24,6 +34,7 @@ const initialBlogs = [
     title: "Canonical string reduction",
     author: "Edsger W. Dijkstra",
     url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+    user: "6606c722350edd701921071d",
     likes: 12,
     __v: 0,
   },
@@ -31,7 +42,8 @@ const initialBlogs = [
     _id: "5a422b891b54a676234d17fa",
     title: "First class tests",
     author: "Robert C. Martin",
-    url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+    url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html",
+    user: "6606c722350edd701921071d",
     likes: 10,
     __v: 0,
   },
@@ -40,6 +52,7 @@ const initialBlogs = [
     title: "TDD harms architecture",
     author: "Robert C. Martin",
     url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
+    user: "6606c722350edd701921071d",
     likes: 0,
     __v: 0,
   },
@@ -48,6 +61,7 @@ const initialBlogs = [
     title: "Type wars",
     author: "Robert C. Martin",
     url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+    user: "6606c722350edd701921071d",
     likes: 2,
     __v: 0,
   },
@@ -78,6 +92,7 @@ const updatedBlog = {
   title: "Updated blog",
   author: "Updated author",
   url: "http://www.updatedblog.com",
+  user: "6606c722350edd701921071d",
   likes: 100,
 };
 

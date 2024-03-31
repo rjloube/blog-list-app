@@ -34,6 +34,9 @@ blogsRouter.delete(
   middleware.extractUser,
   async (request, response) => {
     const blogToDelete = await Blog.findById(request.params.id);
+    if (!blogToDelete) {
+      return response.status(404).json({ error: "blog not found" });
+    }
     console.log("blogToDelete.user.toString()", blogToDelete.user.toString());
     console.log("request.user.id", request.user.id);
     if (blogToDelete.user.toString() === request.user.id.toString()) {
